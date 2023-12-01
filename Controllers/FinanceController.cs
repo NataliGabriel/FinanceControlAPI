@@ -54,7 +54,7 @@ namespace FinanceControlAPI.Controllers
         [HttpGet("ListFinancesByMonth")]
         public async Task<ActionResult<IEnumerable<Finance>>> GetFinancesByMonth([FromQuery] int month, [FromQuery] int year, [FromQuery] int id)
         {
-            var financeByUser = await _context.Finance.Where(f => f.Date.Month == month && f.Date.Year == year).Where(f => f.Id == id).ToListAsync();
+            var financeByUser = await _context.Finance.Where(f => f.Date.Month == month && f.Date.Year == year).Where(f => f.UserId == id).ToListAsync();
             //var financeByUser = await _context.Users.Where(c => c.Id == idUser).Select(c => c.Finances).FirstOrDefaultAsync();
 
             if (financeByUser == null)

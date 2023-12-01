@@ -41,3 +41,9 @@ C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\obj\Debug\net7
 C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\obj\Debug\net7.0\FinanceControlAPI.pdb
 C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\obj\Debug\net7.0\FinanceControlAPI.genruntimeconfig.cache
 C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\obj\Debug\net7.0\ref\FinanceControlAPI.dll
+C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\obj\Debug\net7.0\FinanceControlAPI.sourcelink.json
+C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
+C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\bin\Debug\net7.0\MailKit.dll
+C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\bin\Debug\net7.0\MimeKit.dll
+C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\DEV-NATALI\source\repos\FinanceControl\FinanceControlAPI\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll

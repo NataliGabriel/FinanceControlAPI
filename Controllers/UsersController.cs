@@ -1,8 +1,10 @@
 ﻿using FinanceControlAPI.Data;
 using FinanceControlAPI.Models;
+using MailKit.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using FinanceControlAPI.Negócio;
 
 namespace FinanceControlAPI.Controllers
 {
@@ -10,6 +12,7 @@ namespace FinanceControlAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private Extensao _ = new();
         private readonly FinanceControlContext _financeContext;
         public UsersController(FinanceControlContext financeContext) { _financeContext = financeContext; }
 
@@ -30,36 +33,53 @@ namespace FinanceControlAPI.Controllers
 
             return financeId;
         }
-        [HttpGet("Email")]
-        public async Task<ActionResult<int>> GetUserByEmail([FromQuery] string email)
+        [HttpGet("password")]
+        public async Task<ActionResult<bool>> GetPasswordByEmail([FromQuery] string email)
         {
             var user = await _financeContext.Users.FirstOrDefaultAsync(u => u.Email == email);
 
             if (user == null)
             {
-                return NotFound(); 
+                return NotFound("Email não encontrado");
+            }
+            return Ok(await _.SendEmail(user, false));
+            return true;
+        }
+        [HttpGet("Email")]
+        public async Task<ActionResult<int>> CheckUserByEmail([FromQuery] string email)
+        {
+            var user = await _financeContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
+            {
+                return Ok();
             }
 
-            return user.Id;
+            return Unauthorized();
         }
         [HttpGet("login")]
         public async Task<ActionResult<Users>> GetUserByLogin([FromQuery] string email, [FromQuery] string password)
         {
-            var user = await _financeContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+           var user = await _financeContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
 
             if (user == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             return user;
         }
+        
         [HttpPost]
         public async Task<ActionResult<Users>> AddUser(Users users)
         {
+            if( await _financeContext.Users.FirstOrDefaultAsync(u => u.Email == users.Email) != null)
+            {
+                return Unauthorized("Email já cadastrado.");
+            }
             _financeContext.Users.Add(users);
             await _financeContext.SaveChangesAsync();
-
+            await _.SendEmail(users, true);
             return CreatedAtAction(nameof(GetUsers), new { id = users.Id }, users);
         }
         [HttpPatch("{id}")]
